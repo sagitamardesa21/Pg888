@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unigram.Common;
+using Unigram.Controls.Views;
+using Unigram.Services;
+using Unigram.ViewModels.Settings;
+using Unigram.Views.Settings.Privacy;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+
+namespace Unigram.Views.Settings
+{
+    public sealed partial class SettingsPrivacyAndSecurityPage : Page
+    {
+        public SettingsPrivacyAndSecurityViewModel ViewModel => DataContext as SettingsPrivacyAndSecurityViewModel;
+
+        public SettingsPrivacyAndSecurityPage()
+        {
+            InitializeComponent();
+            DataContext = UnigramContainer.Current.ResolveType<SettingsPrivacyAndSecurityViewModel>();
+        }
+
+        private void Sessions_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsSessionsPage));
+        }
+
+        private void WebSessions_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsWebSessionsPage));
+        }
+
+        private void BlockedUsers_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsBlockedUsersPage));
+        }
+
+        private void StatusTimestamp_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsPrivacyShowStatusPage));
+        }
+
+        private void PhoneCall_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsPrivacyAllowCallsPage));
+        }
+
+        private void ChatInvite_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsPrivacyAllowChatInvitesPage));
+        }
+
+        private async void Passcode_Click(object sender, RoutedEventArgs e)
+        {
+            var service = UnigramContainer.Current.ResolveType<IPasscodeService>();
+            if (sender != null && service.IsEnabled)
+            {
+                var dialog = new SettingsSecurityPasscodeConfirmView();
+
+                var confirm = await dialog.ShowAsync();
+                if (confirm == ContentDialogResult.Primary)
+                {
+                    Frame.Navigate(typeof(SettingsSecurityPasscodePage));
+                }
+            }
+            else
+            {
+                Frame.Navigate(typeof(SettingsSecurityPasscodePage));
+            }
+        }
+
+        #region Binding
+
+        private string ConvertSync(bool sync)
+        {
+            return sync ? Strings.Android.SyncContactsInfoOn : Strings.Android.SyncContactsInfoOff;
+        }
+
+        private string ConvertP2P(int mode)
+        {
+            switch (mode)
+            {
+                case 0:
+                default:
+                    return Strings.Android.LastSeenEverybody;
+                case 1:
+                    return Strings.Android.LastSeenContacts;
+                case 2:
+                    return Strings.Android.LastSeenNobody;
+            }
+        }
+
+        private string ConvertTtl(int days)
+        {
+            if (days >= 365)
+            {
+                return Locale.Declension("Years", days / 365);
+            }
+
+            return Locale.Declension("Months", days / 30);
+        }
+
+        #endregion
+    }
+}
