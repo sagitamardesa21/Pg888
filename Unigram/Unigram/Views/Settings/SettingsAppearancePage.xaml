@@ -1,0 +1,131 @@
+<Page
+    x:Class="Unigram.Views.Settings.SettingsAppearancePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Unigram.Views.Settings"
+    xmlns:controls="using:Unigram.Controls"
+    xmlns:messages="using:Unigram.Controls.Messages"
+    xmlns:chats="using:Unigram.Controls.Chats"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <controls:PageHeader Text="{CustomResource Appearance}"/>
+        <Button x:Name="Options"
+                Click="Menu_ContextRequested"
+                Padding="{StaticResource EllipsisButtonPadding}"
+                Style="{StaticResource EllipsisButton}"
+                AutomationProperties.Name="{CustomResource AccDescrMoreOptions}"
+                ToolTipService.ToolTip="{CustomResource AccDescrMoreOptions}"
+                HorizontalAlignment="Right"
+                Opacity="0">
+            <FontIcon x:Name="EllipsisIcon"
+                      VerticalAlignment="Center"
+                      FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                      FontSize="16"
+                      Glyph="&#xE10C;"
+                      Height="{ThemeResource AppBarExpandButtonCircleDiameter}" />
+        </Button>
+
+        <ScrollViewer x:Name="ScrollingHost"
+                      VerticalScrollBarVisibility="Auto"
+                      VerticalScrollMode="Auto"
+                      Grid.Row="1">
+            <StackPanel Margin="0,0,0,48">
+                <TextBlock Text="{CustomResource TextSizeHeader}" Margin="12,12,12,0" Style="{StaticResource SettingsGroupTextBlockStyle}"/>
+                <Slider Value="{x:Bind ViewModel.FontSize, Mode=TwoWay}"
+                        AutomationProperties.Name="{CustomResource TextSizeHeader}"
+                        Minimum="0"
+                        Maximum="6"
+                        SmallChange="1"
+                        LargeChange="1"
+                        TickFrequency="1"
+                        TickPlacement="Outside"
+                        IsThumbToolTipEnabled="False"
+                        Margin="12,0,12,12"/>
+
+                <Grid x:Name="Preview">
+                    <chats:ChatBackgroundPresenter x:Name="BackgroundPresenter"/>
+                    <StackPanel Padding="12,12,12,10">
+                        <messages:MessageBubble x:Name="Message1" HorizontalAlignment="Left"/>
+                        <messages:MessageBubble x:Name="Message2" HorizontalAlignment="Right">
+                            <FrameworkElement.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <ResourceDictionary Source="ms-appx:///Themes/OutgoingOverride.xaml"/>
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </FrameworkElement.Resources>
+                        </messages:MessageBubble>
+                    </StackPanel>
+                </Grid>
+
+                <Button
+                    Content="{CustomResource ChatBackground}"
+                    Click="Wallpaper_Click"
+                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                    Style="{StaticResource HyperButtonStyle}"/>
+                <controls:BadgeButton
+                    Content="{CustomResource AutoNightTheme}"
+                    Badge="{x:Bind ConvertNightMode(ViewModel.NightMode), Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsNightModeAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Click="NightMode_Click"
+                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+
+                <StackPanel Padding="12" Margin="0,18,0,0">
+                    <TextBlock Text="{CustomResource ColorTheme}" Margin="0,0,0,6" Style="{StaticResource SettingsGroupTextBlockStyle}"/>
+                    <controls:PivotRadioButton x:Uid="SettingsAppearance_Light"
+                                               Click="Switch_Click"
+                                               SelectedValue="{x:Bind ViewModel.RequestedTheme, Mode=TwoWay}"
+                                               Index="2"
+                                               Content="Light"/>
+                    <Rectangle Fill="{ThemeResource TelegramSeparatorMediumBrush}" Height="1" Margin="0,6,0,6"/>
+                    
+                    <controls:PivotRadioButton x:Uid="SettingsAppearance_Dark"
+                                               Click="Switch_Click"
+                                               SelectedValue="{x:Bind ViewModel.RequestedTheme, Mode=TwoWay}"
+                                               Index="4"
+                                               Content="Dark"/>
+                    <Rectangle Fill="{ThemeResource TelegramSeparatorMediumBrush}" Height="1" Margin="0,6,0,6"/>
+                    
+                    <controls:PivotRadioButton x:Uid="SettingsAppearance_UseSystemSettings"
+                                               Click="Switch_Click"
+                                               SelectedValue="{x:Bind ViewModel.RequestedTheme, Mode=TwoWay}"
+                                               Index="1"
+                                               Content="Use system setting"/>
+                    <Rectangle Fill="{ThemeResource TelegramSeparatorMediumBrush}" Height="1" Margin="0,6,0,6"/>
+
+                    <CheckBox x:Uid="SettingsAppearance_TelegramColors"
+                              Click="Switch_Click"
+                              IsChecked="{x:Bind ViewModel.IsSystemTheme, Mode=TwoWay}"
+                              Content="Use system accent color"/>
+                    <Rectangle Fill="{ThemeResource TelegramSeparatorMediumBrush}" Height="1" Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="{CustomResource Settings}" Margin="12,18,12,0" Style="{StaticResource SettingsGroupTextBlockStyle}"/>
+
+                    <ToggleSwitch
+                        IsOn="{x:Bind ViewModel.AreAnimationsEnabled, Mode=TwoWay}"
+                        Header="{CustomResource EnableAnimations}"
+                        Style="{StaticResource CheckButtonStyle}"/>
+                    
+                    <ToggleSwitch
+                        IsOn="{x:Bind ViewModel.IsSendByEnterEnabled, Mode=TwoWay}"
+                        Header="{CustomResource SendByEnter}"
+                        Style="{StaticResource CheckButtonStyle}"/>
+
+                    <ToggleSwitch
+                        IsOn="{x:Bind ViewModel.IsReplaceEmojiEnabled, Mode=TwoWay}"
+                        Header="Replace emojis"
+                        Style="{StaticResource CheckButtonStyle}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
