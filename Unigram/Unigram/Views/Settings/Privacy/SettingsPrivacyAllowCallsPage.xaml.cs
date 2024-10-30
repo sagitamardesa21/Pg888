@@ -1,0 +1,37 @@
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Unigram.ViewModels.Settings;
+using Unigram.ViewModels.Settings.Privacy;
+
+namespace Unigram.Views.Settings.Privacy
+{
+    public sealed partial class SettingsPrivacyAllowCallsPage : HostedPage
+    {
+        public SettingsPrivacyAllowCallsViewModel ViewModel => DataContext as SettingsPrivacyAllowCallsViewModel;
+
+        public SettingsPrivacyAllowCallsPage()
+        {
+            InitializeComponent();
+            DataContext = TLContainer.Current.Resolve<SettingsPrivacyAllowCallsViewModel>();
+        }
+
+        #region Binding
+
+        private Visibility ConvertNever(PrivacyValue value)
+        {
+            return value is PrivacyValue.AllowAll or PrivacyValue.AllowContacts ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private Visibility ConvertAlways(PrivacyValue value)
+        {
+            return value is PrivacyValue.AllowContacts or PrivacyValue.DisallowAll ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        #endregion
+
+        private void P2PCall_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsPrivacyAllowP2PCallsPage));
+        }
+    }
+}

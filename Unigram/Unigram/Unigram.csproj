@@ -1,0 +1,1599 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>Unigram</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;arm64</Platforms>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <CsWinRTWindowsMetadata>10.0.19041.0 "C:\Users\Fela\.nuget\packages\microsoft.graphics.win2d\1.0.0.29-preview3\lib\uap10.0\Microsoft.Graphics.Canvas.winmd"</CsWinRTWindowsMetadata>
+    <CsWinRTIncludes>Telegram.Td;Unigram.Native;Unigram.Native.Calls;RLottie</CsWinRTIncludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="RLottie">
+      <HintPath>$(ProjectDir)\..\Libraries\rlottie\$(Platform)\RLottie.winmd</HintPath>
+      <Implementation>RLottie.dll</Implementation>
+    </Reference>
+    <ReferenceCopyLocalPaths Include="$(ProjectDir)\..\Libraries\rlottie\$(Platform)\RLottie.dll" />
+    <ReferenceCopyLocalPaths Include="$(ProjectDir)\..\Libraries\rlottie\$(Platform)\RLottie.pri" />
+    <!--<ReferenceCopyLocalPaths Condition=" '$(Configuration)' == 'Debug' " Include="$(ProjectDir)\..\Libraries\rlottie\$(Platform)\zlib1.dll" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Telegram.Td">
+      <HintPath>C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\References\CommonConfiguration\x64\Telegram.Td.winmd</HintPath>
+      <Implementation>C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\Redist\CommonConfiguration\x64\Telegram.Td.dll</Implementation>
+      <IsWinMDFile>true</IsWinMDFile>
+    </Reference>
+    <ReferenceCopyLocalPaths Include="C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\Redist\CommonConfiguration\x64\libcrypto-1_1-x64.dll" />
+    <ReferenceCopyLocalPaths Include="C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\Redist\CommonConfiguration\x64\libssl-1_1-x64.dll" />
+    <ReferenceCopyLocalPaths Include="C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\Redist\CommonConfiguration\x64\zlib1.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Charts\ChartHeaderView.xaml" />
+    <None Remove="Charts\DataView\LegendSignatureView.xaml" />
+    <None Remove="Common\CommonStyles.xaml" />
+    <None Remove="Controls\Cells\CallCell.xaml" />
+    <None Remove="Controls\Cells\ChartCell.xaml" />
+    <None Remove="Controls\Cells\ChatCell.xaml" />
+    <None Remove="Controls\Cells\ChatShareCell.xaml" />
+    <None Remove="Controls\Cells\ChatThemeCell.xaml" />
+    <None Remove="Controls\Cells\GroupCallParticipantGridCell.xaml" />
+    <None Remove="Controls\Cells\SessionCell.xaml" />
+    <None Remove="Controls\Cells\SharedAudioCell.xaml" />
+    <None Remove="Controls\Cells\SharedFileCell.xaml" />
+    <None Remove="Controls\Cells\SharedLinkCell.xaml" />
+    <None Remove="Controls\Cells\SharedVoiceCell.xaml" />
+    <None Remove="Controls\Cells\UserCell.xaml" />
+    <None Remove="Controls\Cells\WebSessionCell.xaml" />
+    <None Remove="Controls\ChatStatisticsOverview.xaml" />
+    <None Remove="Controls\Chats\ChatSearchBar.xaml" />
+    <None Remove="Controls\Chats\ChatTextFormatting.xaml" />
+    <None Remove="Controls\CountryBox.xaml" />
+    <None Remove="Controls\Drawers\AnimationDrawer.xaml" />
+    <None Remove="Controls\Drawers\EmojiDrawer.xaml" />
+    <None Remove="Controls\Drawers\StickerDrawer.xaml" />
+    <None Remove="Controls\Gallery\GalleryContentView.xaml" />
+    <None Remove="Controls\Gallery\GalleryView.xaml" />
+    <None Remove="Controls\GroupCallActiveHeader.xaml" />
+    <None Remove="Controls\GroupCallHeader.xaml" />
+    <None Remove="Controls\InlineBotResultsView.xaml" />
+    <None Remove="Controls\MessagePopup.xaml" />
+    <None Remove="Controls\Messages\Content\AnimatedStickerContent.xaml" />
+    <None Remove="Controls\Messages\Content\AnimationContent.xaml" />
+    <None Remove="Controls\Messages\Content\AudioContent.xaml" />
+    <None Remove="Controls\Messages\Content\CallContent.xaml" />
+    <None Remove="Controls\Messages\Content\ContactContent.xaml" />
+    <None Remove="Controls\Messages\Content\DiceContent.xaml" />
+    <None Remove="Controls\Messages\Content\DocumentContent.xaml" />
+    <None Remove="Controls\Messages\Content\DocumentPhotoContent.xaml" />
+    <None Remove="Controls\Messages\Content\GameContent.xaml" />
+    <None Remove="Controls\Messages\Content\InvoiceContent.xaml" />
+    <None Remove="Controls\Messages\Content\InvoicePhotoContent.xaml" />
+    <None Remove="Controls\Messages\Content\LocationContent.xaml" />
+    <None Remove="Controls\Messages\Content\PhotoContent.xaml" />
+    <None Remove="Controls\Messages\Content\PollContent.xaml" />
+    <None Remove="Controls\Messages\Content\StickerContent.xaml" />
+    <None Remove="Controls\Messages\Content\VenueContent.xaml" />
+    <None Remove="Controls\Messages\Content\VideoContent.xaml" />
+    <None Remove="Controls\Messages\Content\VideoNoteContent.xaml" />
+    <None Remove="Controls\Messages\Content\VoiceNoteContent.xaml" />
+    <None Remove="Controls\Messages\Content\WebPageContent.xaml" />
+    <None Remove="Controls\Messages\Content\WebPageSmallPhotoContent.xaml" />
+    <None Remove="Controls\Messages\InvoiceFooter.xaml" />
+    <None Remove="Controls\Messages\MessageBubble.xaml" />
+    <None Remove="Controls\Messages\MessageFooter.xaml" />
+    <None Remove="Controls\Messages\MessagePinned.xaml" />
+    <None Remove="Controls\Messages\MessageReference.xaml" />
+    <None Remove="Controls\PlaybackHeader.xaml" />
+    <None Remove="Controls\PollOptionControl.xaml" />
+    <None Remove="Controls\ProxyStatusControl.xaml" />
+    <None Remove="Controls\StartupSwitch.xaml" />
+    <None Remove="Controls\StickerPanel.xaml" />
+    <None Remove="Controls\UndoView.xaml" />
+    <None Remove="Package.appxmanifest" />
+    <None Remove="Strings\ar\Additional.resw" />
+    <None Remove="Strings\ar\Resources.resw" />
+    <None Remove="Strings\be\Resources.resw" />
+    <None Remove="Strings\ca\Resources.resw" />
+    <None Remove="Strings\de\Additional.resw" />
+    <None Remove="Strings\de\Resources.resw" />
+    <None Remove="Strings\en\Additional.resw" />
+    <None Remove="Strings\en\Resources.resw" />
+    <None Remove="Strings\es\Additional.resw" />
+    <None Remove="Strings\es\Resources.resw" />
+    <None Remove="Strings\fa\Resources.resw" />
+    <None Remove="Strings\fr\Additional.resw" />
+    <None Remove="Strings\fr\Resources.resw" />
+    <None Remove="Strings\id\Additional.resw" />
+    <None Remove="Strings\id\Resources.resw" />
+    <None Remove="Strings\it\Additional.resw" />
+    <None Remove="Strings\it\Resources.resw" />
+    <None Remove="Strings\ko\Additional.resw" />
+    <None Remove="Strings\ko\Resources.resw" />
+    <None Remove="Strings\ms\Additional.resw" />
+    <None Remove="Strings\ms\Resources.resw" />
+    <None Remove="Strings\nl\Additional.resw" />
+    <None Remove="Strings\nl\Resources.resw" />
+    <None Remove="Strings\pl\Resources.resw" />
+    <None Remove="Strings\pt-BR\Additional.resw" />
+    <None Remove="Strings\pt-BR\Resources.resw" />
+    <None Remove="Strings\ru\Additional.resw" />
+    <None Remove="Strings\ru\Resources.resw" />
+    <None Remove="Strings\tr\Resources.resw" />
+    <None Remove="Strings\uk\Additional.resw" />
+    <None Remove="Strings\uk\Resources.resw" />
+    <None Remove="Strings\uz\Resources.resw" />
+    <None Remove="Themes\Accent.xaml" />
+    <None Remove="Themes\Generic.xaml" />
+    <None Remove="Themes\MenuFlyout_themeresources.xaml" />
+    <None Remove="Themes\Messages.xaml" />
+    <None Remove="Themes\ThemeGreen.xaml" />
+    <None Remove="Views\BasicGroups\BasicGroupCreateStep1Page.xaml" />
+    <None Remove="Views\BlankPage.xaml" />
+    <None Remove="Views\Channels\ChannelCreateStep1Page.xaml" />
+    <None Remove="Views\Channels\ChannelCreateStep2Page.xaml" />
+    <None Remove="Views\ChatEventLogPage.xaml" />
+    <None Remove="Views\ChatListPage.xaml" />
+    <None Remove="Views\ChatPage.xaml" />
+    <None Remove="Views\ChatPinnedPage.xaml" />
+    <None Remove="Views\ChatScheduledPage.xaml" />
+    <None Remove="Views\ChatsNearbyPage.xaml" />
+    <None Remove="Views\Chats\ChatInviteLinkPage.xaml" />
+    <None Remove="Views\Chats\ChatSharedMediaView.xaml" />
+    <None Remove="Views\Chats\ChatStatisticsPage.xaml" />
+    <None Remove="Views\Chats\MessageStatisticsPage.xaml" />
+    <None Remove="Views\ChatThreadPage.xaml" />
+    <None Remove="Views\ChatView.xaml" />
+    <None Remove="Views\DiagnosticsPage.xaml" />
+    <None Remove="Views\Folders\FolderPage.xaml" />
+    <None Remove="Views\Folders\FoldersPage.xaml" />
+    <None Remove="Views\GamePage.xaml" />
+    <None Remove="Views\GroupCallPage.xaml" />
+    <None Remove="Views\Host\RootPage.xaml" />
+    <None Remove="Views\Host\StandalonePage.xaml" />
+    <None Remove="Views\IdenticonPage.xaml" />
+    <None Remove="Views\InstantPage.xaml" />
+    <None Remove="Views\IntroPage.xaml" />
+    <None Remove="Views\InvitePage.xaml" />
+    <None Remove="Views\LiveLocationPage.xaml" />
+    <None Remove="Views\LogOutPage.xaml" />
+    <None Remove="Views\MainPage.xaml" />
+    <None Remove="Views\PasscodePage.xaml" />
+    <None Remove="Views\Payments\PaymentAddressPopup.xaml" />
+    <None Remove="Views\Payments\PaymentCredentialsPopup.xaml" />
+    <None Remove="Views\Payments\PaymentFormPage.xaml" />
+    <None Remove="Views\Popups\AttachedStickersPopup.xaml" />
+    <None Remove="Views\Popups\BackgroundPopup.xaml" />
+    <None Remove="Views\Popups\CalendarPopup.xaml" />
+    <None Remove="Views\Popups\CallRatingPopup.xaml" />
+    <None Remove="Views\Popups\ChatThemePopup.xaml" />
+    <None Remove="Views\Popups\ChatTtlPopup.xaml" />
+    <None Remove="Views\Popups\ChooseColorPopup.xaml" />
+    <None Remove="Views\Popups\ChooseRadioPopup.xaml" />
+    <None Remove="Views\Popups\CreateLinkPopup.xaml" />
+    <None Remove="Views\Popups\CreatePollPopup.xaml" />
+    <None Remove="Views\Popups\DeleteChatPopup.xaml" />
+    <None Remove="Views\Popups\DeleteMessagesPopup.xaml" />
+    <None Remove="Views\Popups\EditMediaPopup.xaml" />
+    <None Remove="Views\Popups\EditShortcutPopup.xaml" />
+    <None Remove="Views\Popups\EditUserNamePopup.xaml" />
+    <None Remove="Views\Popups\EditYourAboutPopup.xaml" />
+    <None Remove="Views\Popups\InputPopup.xaml" />
+    <None Remove="Views\Popups\JoinChatPopup.xaml" />
+    <None Remove="Views\Popups\LoginUrlInfoPopup.xaml" />
+    <None Remove="Views\Popups\PollResultsPopup.xaml" />
+    <None Remove="Views\Popups\ProxyPopup.xaml" />
+    <None Remove="Views\Popups\RecordVideoChatPopup.xaml" />
+    <None Remove="Views\Popups\ScheduleMessagePopup.xaml" />
+    <None Remove="Views\Popups\ScheduleVideoChatPopup.xaml" />
+    <None Remove="Views\Popups\SendFilesPopup.xaml" />
+    <None Remove="Views\Popups\SendLocationPopup.xaml" />
+    <None Remove="Views\Popups\SettingsEmojiSetPopup.xaml" />
+    <None Remove="Views\Popups\SettingsPasscodeConfirmPopup.xaml" />
+    <None Remove="Views\Popups\SettingsPasscodeInputPopup.xaml" />
+    <None Remove="Views\Popups\SharePopup.xaml" />
+    <None Remove="Views\Popups\StickerSetPopup.xaml" />
+    <None Remove="Views\Popups\SupergroupEditRestrictedUntilPopup.xaml" />
+    <None Remove="Views\Popups\SupergroupEventLogFiltersPopup.xaml" />
+    <None Remove="Views\Popups\ThemePreviewPopup.xaml" />
+    <None Remove="Views\Popups\VideoChatAliasesPopup.xaml" />
+    <None Remove="Views\Popups\ZoomableMediaPopup.xaml" />
+    <None Remove="Views\ProfilePage.xaml" />
+    <None Remove="Views\SettingsPage.xaml" />
+    <None Remove="Views\Settings\Password\SettingsPasswordConfirmPage.xaml" />
+    <None Remove="Views\Settings\Password\SettingsPasswordCreatePage.xaml" />
+    <None Remove="Views\Settings\Password\SettingsPasswordDonePage.xaml" />
+    <None Remove="Views\Settings\Password\SettingsPasswordEmailPage.xaml" />
+    <None Remove="Views\Settings\Password\SettingsPasswordHintPage.xaml" />
+    <None Remove="Views\Settings\Password\SettingsPasswordIntroPage.xaml" />
+    <None Remove="Views\Settings\Phone\SettingsPhoneIntroPage.xaml" />
+    <None Remove="Views\Settings\Phone\SettingsPhonePage.xaml" />
+    <None Remove="Views\Settings\Phone\SettingsPhoneSentCodePage.xaml" />
+    <None Remove="Views\Settings\Privacy\SettingsPrivacyAllowCallsPage.xaml" />
+    <None Remove="Views\Settings\Privacy\SettingsPrivacyAllowChatInvitesPage.xaml" />
+    <None Remove="Views\Settings\Privacy\SettingsPrivacyAllowP2PCallsPage.xaml" />
+    <None Remove="Views\Settings\Privacy\SettingsPrivacyShowForwardedPage.xaml" />
+    <None Remove="Views\Settings\Privacy\SettingsPrivacyShowPhonePage.xaml" />
+    <None Remove="Views\Settings\Privacy\SettingsPrivacyShowPhotoPage.xaml" />
+    <None Remove="Views\Settings\Privacy\SettingsPrivacyShowStatusPage.xaml" />
+    <None Remove="Views\Settings\SettingsAdvancedPage.xaml" />
+    <None Remove="Views\Settings\SettingsAppearancePage.xaml" />
+    <None Remove="Views\Settings\SettingsBackgroundsPage.xaml" />
+    <None Remove="Views\Settings\SettingsBlockedChatsPage.xaml" />
+    <None Remove="Views\Settings\SettingsDataAndStoragePage.xaml" />
+    <None Remove="Views\Settings\SettingsDataAutoPage.xaml" />
+    <None Remove="Views\Settings\SettingsLanguagePage.xaml" />
+    <None Remove="Views\Settings\SettingsNetworkPage.xaml" />
+    <None Remove="Views\Settings\SettingsNightModePage.xaml" />
+    <None Remove="Views\Settings\SettingsNotificationsExceptionsPage.xaml" />
+    <None Remove="Views\Settings\SettingsNotificationsPage.xaml" />
+    <None Remove="Views\Settings\SettingsPasscodePage.xaml" />
+    <None Remove="Views\Settings\SettingsPasswordPage.xaml" />
+    <None Remove="Views\Settings\SettingsPrivacyAndSecurityPage.xaml" />
+    <None Remove="Views\Settings\SettingsProxiesPage.xaml" />
+    <None Remove="Views\Settings\SettingsSessionsPage.xaml" />
+    <None Remove="Views\Settings\SettingsShortcutsPage.xaml" />
+    <None Remove="Views\Settings\SettingsStickersPage.xaml" />
+    <None Remove="Views\Settings\SettingsStorageOptimizationPage.xaml" />
+    <None Remove="Views\Settings\SettingsStoragePage.xaml" />
+    <None Remove="Views\Settings\SettingsThemePage.xaml" />
+    <None Remove="Views\Settings\SettingsThemesPage.xaml" />
+    <None Remove="Views\Settings\SettingsUsernamePage.xaml" />
+    <None Remove="Views\Settings\SettingsWebSessionsPage.xaml" />
+    <None Remove="Views\SignIn\SignInPage.xaml" />
+    <None Remove="Views\SignIn\SignInPasswordPage.xaml" />
+    <None Remove="Views\SignIn\SignInRecoveryPage.xaml" />
+    <None Remove="Views\SignIn\SignInSentCodePage.xaml" />
+    <None Remove="Views\SignIn\SignUpPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupAddAdministratorPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupAddRestrictedPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupAdministratorsPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupBannedPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupEditAdministratorPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupEditLinkedChatPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupEditPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupEditRestrictedPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupEditStickerSetPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupEditTypePage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupMembersPage.xaml" />
+    <None Remove="Views\Supergroups\SupergroupMembersView.xaml" />
+    <None Remove="Views\Supergroups\SupergroupPermissionsPage.xaml" />
+    <None Remove="Views\Users\UserCommonChatsView.xaml" />
+    <None Remove="Views\Users\UserCreatePage.xaml" />
+    <None Remove="Views\VoIPPage.xaml" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Page Remove="Common\CommonStyles.xaml" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="Common\CommonStyles.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.29-preview3" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.3.5" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview3" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Rg.DiffUtils" Version="1.0.0" />
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Unigram.Native.Calls\Unigram.Native.Calls.vcxproj" />
+    <ProjectReference Include="..\Unigram.Native.Media\Unigram.Native.Media.vcxproj" />
+    <ProjectReference Include="..\Unigram.Native\Unigram.Native.vcxproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Charts\ChartHeaderView.xaml.cs">
+      <DependentUpon>ChartHeaderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Charts\DataView\LegendSignatureView.xaml.cs">
+      <DependentUpon>LegendSignatureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\CallCell.xaml.cs">
+      <DependentUpon>CallCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\ChartCell.xaml.cs">
+      <DependentUpon>ChartCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\ChatCell.xaml.cs">
+      <DependentUpon>ChatCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\ChatShareCell.xaml.cs">
+      <DependentUpon>ChatShareCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\ChatThemeCell.xaml.cs">
+      <DependentUpon>ChatThemeCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\GroupCallParticipantGridCell.xaml.cs">
+      <DependentUpon>GroupCallParticipantGridCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\SessionCell.xaml.cs">
+      <DependentUpon>SessionCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\SharedAudioCell.xaml.cs">
+      <DependentUpon>SharedAudioCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\SharedFileCell.xaml.cs">
+      <DependentUpon>SharedFileCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\SharedLinkCell.xaml.cs">
+      <DependentUpon>SharedLinkCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\SharedVoiceCell.xaml.cs">
+      <DependentUpon>SharedVoiceCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\UserCell.xaml.cs">
+      <DependentUpon>UserCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Cells\WebSessionCell.xaml.cs">
+      <DependentUpon>WebSessionCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\ChatStatisticsOverview.xaml.cs">
+      <DependentUpon>ChatStatisticsOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Chats\ChatSearchBar.xaml.cs">
+      <DependentUpon>ChatSearchBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Chats\ChatTextFormatting.xaml.cs">
+      <DependentUpon>ChatTextFormatting.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\CountryBox.xaml.cs">
+      <DependentUpon>CountryBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Drawers\AnimationDrawer.xaml.cs">
+      <DependentUpon>AnimationDrawer.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Drawers\EmojiDrawer.xaml.cs">
+      <DependentUpon>EmojiDrawer.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Drawers\StickerDrawer.xaml.cs">
+      <DependentUpon>StickerDrawer.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Gallery\GalleryContentView.xaml.cs">
+      <DependentUpon>GalleryContentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Gallery\GalleryView.xaml.cs">
+      <DependentUpon>GalleryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\GroupCallActiveHeader.xaml.cs">
+      <DependentUpon>GroupCallActiveHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\GroupCallHeader.xaml.cs">
+      <DependentUpon>GroupCallHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\InlineBotResultsView.xaml.cs">
+      <DependentUpon>InlineBotResultsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\MessagePopup.xaml.cs">
+      <DependentUpon>MessagePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\AnimatedStickerContent.xaml.cs">
+      <DependentUpon>AnimatedStickerContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\AnimationContent.xaml.cs">
+      <DependentUpon>AnimationContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\AudioContent.xaml.cs">
+      <DependentUpon>AudioContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\CallContent.xaml.cs">
+      <DependentUpon>CallContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\ContactContent.xaml.cs">
+      <DependentUpon>ContactContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\DiceContent.xaml.cs">
+      <DependentUpon>DiceContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\DocumentContent.xaml.cs">
+      <DependentUpon>DocumentContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\DocumentPhotoContent.xaml.cs">
+      <DependentUpon>DocumentPhotoContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\GameContent.xaml.cs">
+      <DependentUpon>GameContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\InvoiceContent.xaml.cs">
+      <DependentUpon>InvoiceContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\InvoicePhotoContent.xaml.cs">
+      <DependentUpon>InvoicePhotoContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\LocationContent.xaml.cs">
+      <DependentUpon>LocationContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\PhotoContent.xaml.cs">
+      <DependentUpon>PhotoContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\PollContent.xaml.cs">
+      <DependentUpon>PollContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\StickerContent.xaml.cs">
+      <DependentUpon>StickerContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\VenueContent.xaml.cs">
+      <DependentUpon>VenueContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\VideoContent.xaml.cs">
+      <DependentUpon>VideoContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\VideoNoteContent.xaml.cs">
+      <DependentUpon>VideoNoteContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\VoiceNoteContent.xaml.cs">
+      <DependentUpon>VoiceNoteContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\WebPageContent.xaml.cs">
+      <DependentUpon>WebPageContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\Content\WebPageSmallPhotoContent.xaml.cs">
+      <DependentUpon>WebPageSmallPhotoContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\InvoiceFooter.xaml.cs">
+      <DependentUpon>InvoiceFooter.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\MessageBubble.xaml.cs">
+      <DependentUpon>MessageBubble.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\MessageFooter.xaml.cs">
+      <DependentUpon>MessageFooter.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\MessagePinned.xaml.cs">
+      <DependentUpon>MessagePinned.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Messages\MessageReference.xaml.cs">
+      <DependentUpon>MessageReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\PlaybackHeader.xaml.cs">
+      <DependentUpon>PlaybackHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\PollOptionControl.xaml.cs">
+      <DependentUpon>PollOptionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\ProxyStatusControl.xaml.cs">
+      <DependentUpon>ProxyStatusControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\StartupSwitch.xaml.cs">
+      <DependentUpon>StartupSwitch.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\StickerPanel.xaml.cs">
+      <DependentUpon>StickerPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\UndoView.xaml.cs">
+      <DependentUpon>UndoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Strings\en\Additional.cs">
+      <DependentUpon>Additional.resw</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Strings\en\Resources.cs">
+      <DependentUpon>Resources.resw</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Themes\Messages.xaml.cs">
+      <DependentUpon>Messages.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\BasicGroups\BasicGroupCreateStep1Page.xaml.cs">
+      <DependentUpon>BasicGroupCreateStep1Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\BlankPage.xaml.cs">
+      <DependentUpon>BlankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Channels\ChannelCreateStep1Page.xaml.cs">
+      <DependentUpon>ChannelCreateStep1Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Channels\ChannelCreateStep2Page.xaml.cs">
+      <DependentUpon>ChannelCreateStep2Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatEventLogPage.xaml.cs">
+      <DependentUpon>ChatEventLogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatListPage.xaml.cs">
+      <DependentUpon>ChatListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatPinnedPage.xaml.cs">
+      <DependentUpon>ChatPinnedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatScheduledPage.xaml.cs">
+      <DependentUpon>ChatScheduledPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatsNearbyPage.xaml.cs">
+      <DependentUpon>ChatsNearbyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Chats\ChatInviteLinkPage.xaml.cs">
+      <DependentUpon>ChatInviteLinkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Chats\ChatSharedMediaView.xaml.cs">
+      <DependentUpon>ChatSharedMediaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Chats\ChatStatisticsPage.xaml.cs">
+      <DependentUpon>ChatStatisticsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Chats\MessageStatisticsPage.xaml.cs">
+      <DependentUpon>MessageStatisticsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatThreadPage.xaml.cs">
+      <DependentUpon>ChatThreadPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatView.Bubbles.xaml.cs">
+      <DependentUpon>ChatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatView.Drawers.cs">
+      <DependentUpon>ChatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatView.xaml.cs">
+      <DependentUpon>ChatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DiagnosticsPage.xaml.cs">
+      <DependentUpon>DiagnosticsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Folders\FolderPage.xaml.cs">
+      <DependentUpon>FolderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Folders\FoldersPage.xaml.cs">
+      <DependentUpon>FoldersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GroupCallPage.xaml.cs">
+      <DependentUpon>GroupCallPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Host\RootPage.xaml.cs">
+      <DependentUpon>RootPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Host\StandalonePage.xaml.cs">
+      <DependentUpon>StandalonePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\IdenticonPage.xaml.cs">
+      <DependentUpon>IdenticonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\InstantPage.xaml.cs">
+      <DependentUpon>InstantPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\IntroPage.xaml.cs">
+      <DependentUpon>IntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\InvitePage.xaml.cs">
+      <DependentUpon>InvitePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\LiveLocationPage.xaml.cs">
+      <DependentUpon>LiveLocationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\LogOutPage.xaml.cs">
+      <DependentUpon>LogOutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PasscodePage.xaml.cs">
+      <DependentUpon>PasscodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Payments\PaymentAddressPopup.xaml.cs">
+      <DependentUpon>PaymentAddressPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Payments\PaymentCredentialsPopup.xaml.cs">
+      <DependentUpon>PaymentCredentialsPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Payments\PaymentFormPage.xaml.cs">
+      <DependentUpon>PaymentFormPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\AttachedStickersPopup.xaml.cs">
+      <DependentUpon>AttachedStickersPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\BackgroundPopup.xaml.cs">
+      <DependentUpon>BackgroundPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\CalendarPopup.xaml.cs">
+      <DependentUpon>CalendarPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\CallRatingPopup.xaml.cs">
+      <DependentUpon>CallRatingPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ChatThemePopup.xaml.cs">
+      <DependentUpon>ChatThemePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ChatTtlPopup.xaml.cs">
+      <DependentUpon>ChatTtlPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ChooseColorPopup.xaml.cs">
+      <DependentUpon>ChooseColorPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ChooseRadioPopup.xaml.cs">
+      <DependentUpon>ChooseRadioPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\CreateLinkPopup.xaml.cs">
+      <DependentUpon>CreateLinkPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\CreatePollPopup.xaml.cs">
+      <DependentUpon>CreatePollPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\DeleteChatPopup.xaml.cs">
+      <DependentUpon>DeleteChatPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\DeleteMessagesPopup.xaml.cs">
+      <DependentUpon>DeleteMessagesPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\EditMediaPopup.xaml.cs">
+      <DependentUpon>EditMediaPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\EditShortcutPopup.xaml.cs">
+      <DependentUpon>EditShortcutPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\EditUserNamePopup.xaml.cs">
+      <DependentUpon>EditUserNamePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\EditYourAboutPopup.xaml.cs">
+      <DependentUpon>EditYourAboutPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\InputPopup.xaml.cs">
+      <DependentUpon>InputPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\JoinChatPopup.xaml.cs">
+      <DependentUpon>JoinChatPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\LoginUrlInfoPopup.xaml.cs">
+      <DependentUpon>LoginUrlInfoPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\PollResultsPopup.xaml.cs">
+      <DependentUpon>PollResultsPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ProxyPopup.xaml.cs">
+      <DependentUpon>ProxyPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\RecordVideoChatPopup.xaml.cs">
+      <DependentUpon>RecordVideoChatPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ScheduleMessagePopup.xaml.cs">
+      <DependentUpon>ScheduleMessagePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ScheduleVideoChatPopup.xaml.cs">
+      <DependentUpon>ScheduleVideoChatPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\SendFilesPopup.xaml.cs">
+      <DependentUpon>SendFilesPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\SendLocationPopup.xaml.cs">
+      <DependentUpon>SendLocationPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\SettingsEmojiSetPopup.xaml.cs">
+      <DependentUpon>SettingsEmojiSetPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\SettingsPasscodeConfirmPopup.xaml.cs">
+      <DependentUpon>SettingsPasscodeConfirmPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\SettingsPasscodeInputPopup.xaml.cs">
+      <DependentUpon>SettingsPasscodeInputPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\SharePopup.xaml.cs">
+      <DependentUpon>SharePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\StickerSetPopup.xaml.cs">
+      <DependentUpon>StickerSetPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\SupergroupEditRestrictedUntilPopup.xaml.cs">
+      <DependentUpon>SupergroupEditRestrictedUntilPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\SupergroupEventLogFiltersPopup.xaml.cs">
+      <DependentUpon>SupergroupEventLogFiltersPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ThemePreviewPopup.xaml.cs">
+      <DependentUpon>ThemePreviewPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\VideoChatAliasesPopup.xaml.cs">
+      <DependentUpon>VideoChatAliasesPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ZoomableMediaPopup.xaml.cs">
+      <DependentUpon>ZoomableMediaPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Password\SettingsPasswordConfirmPage.xaml.cs">
+      <DependentUpon>SettingsPasswordConfirmPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Password\SettingsPasswordCreatePage.xaml.cs">
+      <DependentUpon>SettingsPasswordCreatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Password\SettingsPasswordDonePage.xaml.cs">
+      <DependentUpon>SettingsPasswordDonePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Password\SettingsPasswordEmailPage.xaml.cs">
+      <DependentUpon>SettingsPasswordEmailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Password\SettingsPasswordHintPage.xaml.cs">
+      <DependentUpon>SettingsPasswordHintPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Password\SettingsPasswordIntroPage.xaml.cs">
+      <DependentUpon>SettingsPasswordIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Phone\SettingsPhoneIntroPage.xaml.cs">
+      <DependentUpon>SettingsPhoneIntroPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Phone\SettingsPhonePage.xaml.cs">
+      <DependentUpon>SettingsPhonePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Phone\SettingsPhoneSentCodePage.xaml.cs">
+      <DependentUpon>SettingsPhoneSentCodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Privacy\SettingsPrivacyAllowCallsPage.xaml.cs">
+      <DependentUpon>SettingsPrivacyAllowCallsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Privacy\SettingsPrivacyAllowChatInvitesPage.xaml.cs">
+      <DependentUpon>SettingsPrivacyAllowChatInvitesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Privacy\SettingsPrivacyAllowP2PCallsPage.xaml.cs">
+      <DependentUpon>SettingsPrivacyAllowP2PCallsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Privacy\SettingsPrivacyShowForwardedPage.xaml.cs">
+      <DependentUpon>SettingsPrivacyShowForwardedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Privacy\SettingsPrivacyShowPhonePage.xaml.cs">
+      <DependentUpon>SettingsPrivacyShowPhonePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Privacy\SettingsPrivacyShowPhotoPage.xaml.cs">
+      <DependentUpon>SettingsPrivacyShowPhotoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\Privacy\SettingsPrivacyShowStatusPage.xaml.cs">
+      <DependentUpon>SettingsPrivacyShowStatusPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsAdvancedPage.xaml.cs">
+      <DependentUpon>SettingsAdvancedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsAppearancePage.xaml.cs">
+      <DependentUpon>SettingsAppearancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsBackgroundsPage.xaml.cs">
+      <DependentUpon>SettingsBackgroundsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsBlockedChatsPage.xaml.cs">
+      <DependentUpon>SettingsBlockedChatsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsDataAndStoragePage.xaml.cs">
+      <DependentUpon>SettingsDataAndStoragePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsDataAutoPage.xaml.cs">
+      <DependentUpon>SettingsDataAutoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsLanguagePage.xaml.cs">
+      <DependentUpon>SettingsLanguagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsNetworkPage.xaml.cs">
+      <DependentUpon>SettingsNetworkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsNightModePage.xaml.cs">
+      <DependentUpon>SettingsNightModePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsNotificationsExceptionsPage.xaml.cs">
+      <DependentUpon>SettingsNotificationsExceptionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsNotificationsPage.xaml.cs">
+      <DependentUpon>SettingsNotificationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsPasscodePage.xaml.cs">
+      <DependentUpon>SettingsPasscodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsPasswordPage.xaml.cs">
+      <DependentUpon>SettingsPasswordPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsPrivacyAndSecurityPage.xaml.cs">
+      <DependentUpon>SettingsPrivacyAndSecurityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsProxiesPage.xaml.cs">
+      <DependentUpon>SettingsProxiesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsSessionsPage.xaml.cs">
+      <DependentUpon>SettingsSessionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsShortcutsPage.xaml.cs">
+      <DependentUpon>SettingsShortcutsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsStickersPage.xaml.cs">
+      <DependentUpon>SettingsStickersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsStorageOptimizationPage.xaml.cs">
+      <DependentUpon>SettingsStorageOptimizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsStoragePage.xaml.cs">
+      <DependentUpon>SettingsStoragePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsThemePage.xaml.cs">
+      <DependentUpon>SettingsThemePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsThemesPage.xaml.cs">
+      <DependentUpon>SettingsThemesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsUsernamePage.xaml.cs">
+      <DependentUpon>SettingsUsernamePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Settings\SettingsWebSessionsPage.xaml.cs">
+      <DependentUpon>SettingsWebSessionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SignIn\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SignIn\SignInPasswordPage.xaml.cs">
+      <DependentUpon>SignInPasswordPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SignIn\SignInRecoveryPage.xaml.cs">
+      <DependentUpon>SignInRecoveryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SignIn\SignInSentCodePage.xaml.cs">
+      <DependentUpon>SignInSentCodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SignIn\SignUpPage.xaml.cs">
+      <DependentUpon>SignUpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupAddAdministratorPage.xaml.cs">
+      <DependentUpon>SupergroupAddAdministratorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupAddRestrictedPage.xaml.cs">
+      <DependentUpon>SupergroupAddRestrictedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupAdministratorsPage.xaml.cs">
+      <DependentUpon>SupergroupAdministratorsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupBannedPage.xaml.cs">
+      <DependentUpon>SupergroupBannedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupEditAdministratorPage.xaml.cs">
+      <DependentUpon>SupergroupEditAdministratorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupEditLinkedChatPage.xaml.cs">
+      <DependentUpon>SupergroupEditLinkedChatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupEditPage.xaml.cs">
+      <DependentUpon>SupergroupEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupEditRestrictedPage.xaml.cs">
+      <DependentUpon>SupergroupEditRestrictedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupEditStickerSetPage.xaml.cs">
+      <DependentUpon>SupergroupEditStickerSetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupEditTypePage.xaml.cs">
+      <DependentUpon>SupergroupEditTypePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupMembersPage.xaml.cs">
+      <DependentUpon>SupergroupMembersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupMembersView.xaml.cs">
+      <DependentUpon>SupergroupMembersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Supergroups\SupergroupPermissionsPage.xaml.cs">
+      <DependentUpon>SupergroupPermissionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Users\UserCommonChatsView.xaml.cs">
+      <DependentUpon>UserCommonChatsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Users\UserCreatePage.xaml.cs">
+      <DependentUpon>UserCreatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\VoIPPage.xaml.cs">
+      <DependentUpon>VoIPPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Charts\ChartHeaderView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Charts\DataView\LegendSignatureView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\CallCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\ChartCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\ChatCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\ChatShareCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\ChatThemeCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\GroupCallParticipantGridCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\SessionCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\SharedAudioCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\SharedFileCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\SharedLinkCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\SharedVoiceCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\UserCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Cells\WebSessionCell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ChatStatisticsOverview.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Chats\ChatSearchBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Chats\ChatTextFormatting.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\CountryBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Drawers\AnimationDrawer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Drawers\EmojiDrawer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Drawers\StickerDrawer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Gallery\GalleryContentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Gallery\GalleryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\GroupCallActiveHeader.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\GroupCallHeader.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\InlineBotResultsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\MessagePopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\AnimatedStickerContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\AnimationContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\AudioContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\CallContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\ContactContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\DiceContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\DocumentContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\DocumentPhotoContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\GameContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\InvoiceContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\InvoicePhotoContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\LocationContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\PhotoContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\PollContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\StickerContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\VenueContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\VideoContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\VideoNoteContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\VoiceNoteContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\WebPageContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\Content\WebPageSmallPhotoContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\InvoiceFooter.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\MessageBubble.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\MessageFooter.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\MessagePinned.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Messages\MessageReference.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\PlaybackHeader.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\PollOptionControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ProxyStatusControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\StartupSwitch.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\StickerPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\UndoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Accent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\MenuFlyout_themeresources.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Messages.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\ThemeGreen.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BasicGroups\BasicGroupCreateStep1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BlankPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Channels\ChannelCreateStep1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Channels\ChannelCreateStep2Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatEventLogPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatListPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatPinnedPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatScheduledPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatsNearbyPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Chats\ChatInviteLinkPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Chats\ChatSharedMediaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Chats\ChatStatisticsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Chats\MessageStatisticsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatThreadPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DiagnosticsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Folders\FolderPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Folders\FoldersPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GamePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\GroupCallPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Host\RootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Host\StandalonePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\IdenticonPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InstantPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\IntroPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InvitePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LiveLocationPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LogOutPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PasscodePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Payments\PaymentAddressPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Payments\PaymentCredentialsPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Payments\PaymentFormPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\AttachedStickersPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\BackgroundPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\CalendarPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\CallRatingPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ChatThemePopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ChatTtlPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ChooseColorPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ChooseRadioPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\CreateLinkPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\CreatePollPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\DeleteChatPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\DeleteMessagesPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\EditMediaPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\EditShortcutPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\EditUserNamePopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\EditYourAboutPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\InputPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\JoinChatPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\LoginUrlInfoPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\PollResultsPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ProxyPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\RecordVideoChatPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ScheduleMessagePopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ScheduleVideoChatPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\SendFilesPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\SendLocationPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\SettingsEmojiSetPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\SettingsPasscodeConfirmPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\SettingsPasscodeInputPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\SharePopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\StickerSetPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\SupergroupEditRestrictedUntilPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\SupergroupEventLogFiltersPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ThemePreviewPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\VideoChatAliasesPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Popups\ZoomableMediaPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Password\SettingsPasswordConfirmPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Password\SettingsPasswordCreatePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Password\SettingsPasswordDonePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Password\SettingsPasswordEmailPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Password\SettingsPasswordHintPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Password\SettingsPasswordIntroPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Phone\SettingsPhoneIntroPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Phone\SettingsPhonePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Phone\SettingsPhoneSentCodePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Privacy\SettingsPrivacyAllowCallsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Privacy\SettingsPrivacyAllowChatInvitesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Privacy\SettingsPrivacyAllowP2PCallsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Privacy\SettingsPrivacyShowForwardedPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Privacy\SettingsPrivacyShowPhonePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Privacy\SettingsPrivacyShowPhotoPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\Privacy\SettingsPrivacyShowStatusPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsAdvancedPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsAppearancePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsBackgroundsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsBlockedChatsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsDataAndStoragePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsDataAutoPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsLanguagePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsNetworkPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsNightModePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsNotificationsExceptionsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsNotificationsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsPasscodePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsPasswordPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsPrivacyAndSecurityPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsProxiesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsSessionsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsShortcutsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsStickersPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsStorageOptimizationPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsStoragePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsThemePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsThemesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsUsernamePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Settings\SettingsWebSessionsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SignIn\SignInPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SignIn\SignInPasswordPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SignIn\SignInRecoveryPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SignIn\SignInSentCodePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SignIn\SignUpPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupAddAdministratorPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupAddRestrictedPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupAdministratorsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupBannedPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupEditAdministratorPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupEditLinkedChatPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupEditPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupEditRestrictedPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupEditStickerSetPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupEditTypePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupMembersPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupMembersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Supergroups\SupergroupPermissionsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Users\UserCommonChatsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Users\UserCreatePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\VoIPPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PRIResource Update="Strings\ar\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\ar\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\de\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\de\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\en\Additional.resw">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>Unigram.Strings</CustomToolNamespace>
+      <LastGenOutput>Additional.cs</LastGenOutput>
+      <Generator>ReswFileCodeGenerator</Generator>
+    </PRIResource>
+    <PRIResource Update="Strings\en\Resources.resw">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>Unigram.Strings</CustomToolNamespace>
+      <LastGenOutput>Resources.cs</LastGenOutput>
+      <Generator>ReswFileCodeGenerator</Generator>
+    </PRIResource>
+    <PRIResource Update="Strings\es\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\es\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\fa\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\fr\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\fr\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\id\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\id\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\it\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\it\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\ko\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\ko\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\ms\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\ms\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\nl\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\nl\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\pt-BR\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\pt-BR\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\ru\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\ru\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\uk\Additional.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\uk\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+  </ItemGroup>
+</Project>
