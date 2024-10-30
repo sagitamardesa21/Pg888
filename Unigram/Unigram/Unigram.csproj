@@ -1,0 +1,105 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows10.0.22000.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>Unigram</RootNamespace>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Platforms>x86;x64;ARM64</Platforms>
+		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
+		<UseWinUI>true</UseWinUI>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>ENABLE_CALLS</DefineConstants>
+		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<PackageCertificateKeyFile>Unigram2_TemporaryKey.pfx</PackageCertificateKeyFile>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<AppxBundle>Never</AppxBundle>
+		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Controls\Messages\MessageTextBlock.cs" />
+	  <Compile Remove="Selectors\StickerTemplateSelector.cs" />
+	  <Compile Remove="ViewModels\Popups\ChooseUsersViewModel.cs" />
+	  <Compile Remove="Views\IntroPage.xaml.cs" />
+	  <Compile Remove="Views\Popups\ChooseUsersPopup.xaml.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Themes\CornerRadius_themeresources.xaml" />
+	  <None Remove="Views\IntroPage.xaml" />
+	  <None Remove="Views\Popups\ChooseUsersPopup.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Remove="Views\IntroPage.xaml" />
+	  <Page Remove="Views\Popups\ChooseUsersPopup.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.1" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.1" />
+		<PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230217.4" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.1" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.2.230217.4" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Rg.DiffUtils" Version="1.0.0" />
+		<Manifest Include="$(ApplicationManifest)" />
+	</ItemGroup>
+
+	<!-- 
+    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+    Tools extension to be activated for this project even if the Windows App SDK Nuget
+    package has not yet been restored.
+  -->
+	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+		<ProjectCapability Include="Msix" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Unigram.WinRT\Unigram.WinRT.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="ViewModels\Popups\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Themes\CornerRadius_themeresources.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ReferenceCopyLocalPaths Include="C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\Redist\CommonConfiguration\$(Platform)\libcrypto-1_1-x64.dll" />
+		<ReferenceCopyLocalPaths Include="C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\Redist\CommonConfiguration\$(Platform)\libssl-1_1-x64.dll" />
+		<ReferenceCopyLocalPaths Include="C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\Redist\CommonConfiguration\$(Platform)\zlib1.dll" />
+		<ReferenceCopyLocalPaths Include="C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\Redist\CommonConfiguration\$(Platform)\Telegram.Td.dll" />
+		<ReferenceCopyLocalPaths Include="C:\Users\Fela\AppData\Local\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\Telegram.Td.UWP\1.0\References\CommonConfiguration\$(Platform)\Telegram.Td.pri" />
+		<!--<ReferenceCopyLocalPaths Condition=" '$(Configuration)' == 'Debug' " Include="$(ProjectDir)\..\Libraries\rlottie\$(Platform)\zlib1.dll" />-->
+	</ItemGroup>
+	<ItemGroup>
+		<ReferenceCopyLocalPaths Include="$(ProjectDir)..\Libraries\rlottie\$(Platform)\RLottie.dll" />
+		<ReferenceCopyLocalPaths Include="$(ProjectDir)..\Libraries\rlottie\$(Platform)\RLottie.pri" />
+		<!--<ReferenceCopyLocalPaths Condition=" '$(Configuration)' == 'Debug' " Include="$(ProjectDir)\..\Libraries\rlottie\$(Platform)\zlib1.dll" />-->
+	</ItemGroup>
+	<ItemGroup>
+		<ReferenceCopyLocalPaths Include="$(ProjectDir)..\Libraries\ffmpeg\$(Platform)\FFmpegInteropX.dll" />
+		<ReferenceCopyLocalPaths Include="$(ProjectDir)..\Libraries\ffmpeg\$(Platform)\FFmpegInteropX.pri" />
+		<ReferenceCopyLocalPaths Include="$(ProjectDir)..\Libraries\ffmpeg\$(Platform)\avfilter-7.dll" />
+	</ItemGroup>
+
+	<!-- 
+    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
+    Explorer "Package and Publish" context menu entry to be enabled for this project even if 
+    the Windows App SDK Nuget package has not yet been restored.
+  -->
+	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+	</PropertyGroup>
+</Project>

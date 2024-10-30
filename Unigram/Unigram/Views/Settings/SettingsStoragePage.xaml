@@ -1,0 +1,83 @@
+<local:HostedPage x:Class="Unigram.Views.Settings.SettingsStoragePage"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:local="using:Unigram.Views"
+                  xmlns:common="using:Unigram.Common"
+                  xmlns:controls="using:Unigram.Controls"
+                  xmlns:cells="using:Unigram.Controls.Cells"
+                  xmlns:selectors="using:Unigram.Selectors"
+                  xmlns:td="using:Telegram.Td.Api"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  mc:Ignorable="d">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <SlideNavigationTransitionInfo Effect="FromRight" />
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <!--<local:HostedPage.Header>
+        <controls:PageHeader
+            Text="{CustomResource StorageUsage}" 
+            IsLoading="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
+    </local:HostedPage.Header>-->
+
+    <Grid Background="{ThemeResource SettingsPageBackground}">
+        <controls:TableListView ItemsSource="{x:Bind ViewModel.Statistics.ByChat, Mode=OneWay}"
+                                ItemClick="ListView_ItemClick"
+                                IsItemClickEnabled="True"
+                                SelectionMode="None"
+                                ContainerContentChanging="OnContainerContentChanging">
+            <ListView.Header>
+                <StackPanel Spacing="16"
+                            Margin="0,0,0,16">
+                    <controls:HeaderedControl x:Name="KeepMediaPanel"
+                                              Header="{CustomResource KeepMedia}"
+                                              Footer="{CustomResource KeepMediaInfo}"
+                                              Background="{ThemeResource SettingsItemBackground}">
+                        <Grid x:Name="KeepMediaTicks"
+                              Padding="12,6,12,6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Slider x:Name="KeepMedia"
+                                    Value="{x:Bind ConvertKeepMedia(ViewModel.KeepMedia), Mode=TwoWay, BindBack=ConvertKeepMediaBack}"
+                                    Maximum="3"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    LargeChange="1"
+                                    StepFrequency="1"
+                                    TickFrequency="1"
+                                    TickPlacement="Outside"
+                                    IsThumbToolTipEnabled="False"
+                                    Grid.Row="1" />
+                        </Grid>
+                    </controls:HeaderedControl>
+
+                    <controls:HeaderedControl>
+                        <controls:BadgeButton Content="{CustomResource LocalDatabase}"
+                                              Badge="{x:Bind ViewModel.StatisticsFast.DatabaseSize, Mode=OneWay, Converter={StaticResource FileSizeConverter}}" />
+                        <controls:BadgeButton Command="{x:Bind ViewModel.ClearCacheCommand}"
+                                              Content="{CustomResource ClearMediaCache}"
+                                              Badge="{x:Bind ViewModel.Statistics.Size, Mode=OneWay, Converter={StaticResource FileSizeConverter}}"
+                                              IsEnabled="{x:Bind ConvertEnabled(ViewModel.Statistics), Mode=OneWay}" />
+                    </controls:HeaderedControl>
+                </StackPanel>
+            </ListView.Header>
+            <ListView.Footer>
+                <Border Height="32" />
+            </ListView.Footer>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <cells:UserCell Background="{ThemeResource SettingsItemBackground}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </controls:TableListView>
+    </Grid>
+</local:HostedPage>
